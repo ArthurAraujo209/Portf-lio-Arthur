@@ -3,6 +3,7 @@
 class ClientManager {
     constructor() {
         this.currentClient = null;
+        this.clients = [];
         this.init();
     }
 
@@ -13,19 +14,41 @@ class ClientManager {
 
     setupEventListeners() {
         // Formulário de cliente
-        document.getElementById('client-form').addEventListener('submit', (e) => this.saveClient(e));
-        
+        const clientForm = document.getElementById('client-form');
+        if (clientForm) {
+            clientForm.addEventListener('submit', (e) => this.saveClient(e));
+        }
+
         // Filtros
-        document.getElementById('filter-status').addEventListener('change', () => this.filterClients());
-        document.getElementById('filter-payment').addEventListener('change', () => this.filterClients());
-        document.getElementById('search-input').addEventListener('input', () => this.filterClients());
+        const filterStatus = document.getElementById('filter-status');
+        if (filterStatus) {
+            filterStatus.addEventListener('change', () => this.filterClients());
+        }
+        const filterPayment = document.getElementById('filter-payment');
+        if (filterPayment) {
+            filterPayment.addEventListener('change', () => this.filterClients());
+        }
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', () => this.filterClients());
+        }
     }
 
     async loadClients() {
         try {
             const snapshot = await db.collection('clients').orderBy('createdAt', 'desc').get();
-            this.clients = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            this.clients = snapshot.docs.map(doc => {
+                const data = doc.data();
+                // Garantir que value e paid sejam números válidos
+                data.value = typeof data.value === 'number' ? data.value : parseFloat(data.value) || 0;
+                data.paid = typeof data.paid === 'number' ? data.paid : parseFloat(data.paid) || 0;
+                return { id: doc.id, ...data };
+            });
             this.displayClients(this.clients);
+            if (typeof renderProfitChart === 'function') {
+                renderProfitChart(this.clients);
+            }
+            this.updateStats(this.clients);
         } catch (error) {
             console.error('Erro ao carregar clientes:', error);
         }
@@ -33,6 +56,7 @@ class ClientManager {
 
     displayClients(clients) {
         const tbody = document.getElementById('clients-table-body');
+        if (!tbody) return;
         tbody.innerHTML = '';
 
         clients.forEach(client => {
@@ -43,26 +67,26 @@ class ClientManager {
 
     createClientRow(client) {
         const row = document.createElement('tr');
-        
+
         // Calcular status de pagamento
         const paymentStatus = this.getPaymentStatus(client.value, client.paid);
-        const progress = ((client.paid / client.value) * 100).toFixed(0);
-        
+        const progress = client.value > 0 ? ((client.paid / client.value) * 100).toFixed(0) : 0;
+
         row.innerHTML = `
             <td>
-                <strong>${client.name}</strong><br>
-                <small>${client.email}</small>
+                <strong>${this.escapeHTML(client.name)}</strong><br>
+                <small>${this.escapeHTML(client.email)}</small>
             </td>
-            <td>${client.project}</td>
+            <td>${this.escapeHTML(client.project)}</td>
             <td>R$ ${client.value.toFixed(2)}</td>
             <td>
                 <div class="payment-info">
                     <div>R$ ${client.paid.toFixed(2)} pago</div>
                     <small>${progress}% concluído</small>
-                    <div class="payment-status ${paymentStatus}">${paymentStatus}</div>
+                    <div class="payment-status ${paymentStatus}">${this.getPaymentStatusText(paymentStatus)}</div>
                 </div>
             </td>
-            <td>${client.deadline ? new Date(client.deadline).toLocaleDateString() : 'Não definido'}</td>
+            <td>${client.deadline ? this.formatDate(client.deadline) : 'Não definido'}</td>
             <td><span class="status status-${client.status}">${this.getStatusText(client.status)}</span></td>
             <td class="actions">
                 <button class="action-btn action-edit" onclick="clientManager.editClient('${client.id}')">
@@ -78,9 +102,18 @@ class ClientManager {
     }
 
     getPaymentStatus(total, paid) {
-        if (paid >= total) return 'paid';
-        if (paid > 0) return 'partial';
+        if (paid >= total && total > 0) return 'paid';
+        if (paid > 0 && paid < total) return 'partial';
         return 'pending';
+    }
+
+    getPaymentStatusText(status) {
+        const map = {
+            paid: 'Pago',
+            partial: 'Parcial',
+            pending: 'Pendente'
+        };
+        return map[status] || status;
     }
 
     getStatusText(status) {
@@ -92,18 +125,54 @@ class ClientManager {
         return statusMap[status] || status;
     }
 
+    formatDate(dateStr) {
+        // Aceita tanto Date quanto string
+        const date = typeof dateStr === 'string' ? new Date(dateStr) : dateStr;
+        if (isNaN(date.getTime())) return 'Não definido';
+        return date.toLocaleDateString('pt-BR');
+    }
+
+    escapeHTML(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     async saveClient(e) {
         e.preventDefault();
-        
+
+        const name = document.getElementById('client-name').value.trim();
+        const email = document.getElementById('client-email').value.trim();
+        const project = document.getElementById('client-project').value.trim();
+        const description = document.getElementById('client-description').value.trim();
+        const value = parseFloat(document.getElementById('client-value').value);
+        const paid = parseFloat(document.getElementById('client-paid').value) || 0;
+        const deadline = document.getElementById('client-deadline').value;
+        const status = document.getElementById('client-status').value;
+
+        // Validação básica
+        if (!name || !email || !project || isNaN(value) || value < 0 || paid < 0) {
+            this.showAlert('Preencha todos os campos obrigatórios corretamente.', 'error');
+            return;
+        }
+        if (paid > value) {
+            this.showAlert('O valor pago não pode ser maior que o valor total.', 'error');
+            return;
+        }
+
         const formData = {
-            name: document.getElementById('client-name').value,
-            email: document.getElementById('client-email').value,
-            project: document.getElementById('client-project').value,
-            description: document.getElementById('client-description').value,
-            value: parseFloat(document.getElementById('client-value').value),
-            paid: parseFloat(document.getElementById('client-paid').value) || 0,
-            deadline: document.getElementById('client-deadline').value,
-            status: document.getElementById('client-status').value,
+            name,
+            email,
+            project,
+            description,
+            value,
+            paid,
+            deadline,
+            status,
             updatedAt: new Date()
         };
 
@@ -212,7 +281,8 @@ class ClientManager {
     }
 
     resetForm() {
-        document.getElementById('client-form').reset();
+        const form = document.getElementById('client-form');
+        if (form) form.reset();
         document.getElementById('modal-title').textContent = 'Novo Cliente';
     }
 
@@ -232,21 +302,32 @@ class ClientManager {
             alert.remove();
         }, 3000);
     }
+
+    updateStats(clients) {
+        const totalProfit = clients.reduce((sum, c) => sum + (c.paid || 0), 0);
+        const totalProjects = clients.length;
+        const avgProfit = totalProjects ? totalProfit / totalProjects : 0;
+
+        document.getElementById('total-profit').textContent = `R$ ${totalProfit.toFixed(2)}`;
+        document.getElementById('total-projects').textContent = totalProjects;
+        document.getElementById('avg-profit').textContent = `R$ ${avgProfit.toFixed(2)}`;
+    }
 }
 
 // Funções globais para o modal
 function openModal() {
-    clientManager.openModal();
+    if (window.clientManager) window.clientManager.openModal();
 }
 
 function closeModal() {
-    clientManager.closeModal();
+    if (window.clientManager) window.clientManager.closeModal();
 }
 
 // Inicializar quando o DOM estiver pronto
 let clientManager;
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     clientManager = new ClientManager();
+    window.clientManager = clientManager;
 });
 
 // CSS adicional para alertas e status de pagamento
@@ -325,3 +406,7 @@ const additionalStyles = `
 const style = document.createElement('style');
 style.textContent = additionalStyles;
 document.head.appendChild(style);
+
+// Exemplo de ajuste para incluir o dia final inteiro
+const endDate = new Date(document.getElementById('end-date').value);
+endDate.setHours(23, 59, 59, 999); // Inclui todo o dia final

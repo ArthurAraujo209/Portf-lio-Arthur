@@ -9,6 +9,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
     <style>
         :root {
             --azul-principal: #2A6BF2;
@@ -53,15 +55,106 @@
             line-height: 1.6;
         }
 
+        body,
+        html {
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
         .admin-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 100vw;
+            padding: 10px;
+        }
+
+        .admin-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .admin-title {
+            font-size: 2rem;
+            word-break: break-word;
+        }
+
+        .admin-actions {
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filters,
+        .stats-cards {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .clients-table {
+            width: 100%;
+            min-width: 700px;
+            font-size: 0.95rem;
+        }
+
+        .clients-table th,
+        .clients-table td {
+            padding: 10px;
+        }
+
+        .section {
+            padding: 10px;
+        }
+
+        .stats-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .stat-card {
+            padding: 15px;
+            min-width: 0;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            word-break: break-word;
+        }
+
+        .chart-container {
+            width: 100%;
+            min-height: 300px;
+            height: 350px;
+            max-width: 100vw;
+            overflow-x: auto;
+            padding: 0;
+        }
+
+        #profit-chart {
+            min-width: 600px;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .modal-content {
+            width: 98vw;
+            max-width: 500px;
+            padding: 10px;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 10px;
         }
 
         .admin-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
@@ -93,13 +186,19 @@
         }
 
         .btn-primary {
-            background: var(--azul-principal);
+            background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-claro) 100%);
             color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
             background: var(--azul-claro);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 107, 242, 0.3);
         }
 
         .btn-secondary {
@@ -114,13 +213,14 @@
 
         /* Filtros */
         .filters {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--card-bg) 0%, var(--bg-secondary) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--bg-secondary);
         }
 
         .filter-group {
@@ -132,6 +232,8 @@
         .filter-group label {
             font-size: 0.9rem;
             color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
         select,
@@ -238,21 +340,17 @@
             z-index: 1000;
             animation: fadeIn 0.3s ease;
             overflow-y: auto;
-            /* Permite scroll no modal */
         }
 
         .modal-content {
             background: var(--card-bg);
             margin: 2% auto;
-            /* Margem menor para mobile */
             padding: 20px;
             border-radius: 15px;
             width: 90%;
             max-width: 600px;
             max-height: 90vh;
-            /* Altura máxima */
             overflow-y: auto;
-            /* Scroll interno */
             animation: slideIn 0.3s ease;
             position: relative;
         }
@@ -388,6 +486,26 @@
             .form-group select:focus,
             .form-group textarea:focus {
                 scroll-margin-top: 100px;
+            }
+
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-value {
+                font-size: 1.3rem;
+            }
+
+            .chart-container {
+                height: 300px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -694,85 +812,67 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(42, 107, 242, 0.3);
         }
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-  align-items: flex-end;
-  margin-bottom: 2rem;
-}
 
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 180px;
-}
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+        }
 
-.filter-group label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  color: #333;
-}
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 180px;
+        }
 
-input[type="text"],
-select {
-  padding: 0.7rem 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  color: #333;
-  background: #fff;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
+        .filter-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #333;
+        }
 
-input:focus,
-select:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-  outline: none;
-}
+        input[type="text"],
+        select {
+            padding: 0.7rem 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #333;
+            background: #fff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
 
-button.btn {
-  padding: 0.8rem 1.2rem;
-  border-radius: 12px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #007bff;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
+        input:focus,
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+            outline: none;
+        }
 
-button.btn:hover {
-  background: #0056b3;
-}
+        button.btn {
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
 
+        button.btn:hover {
+            background: #0056b3;
+        }
     </style>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<script>
-  flatpickr("#start-date", {
-    dateFormat: "Y-m-d",
-    defaultDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
-  });
-
-  flatpickr("#end-date", {
-    dateFormat: "Y-m-d",
-    defaultDate: new Date()
-  });
-</script>
-
-    <!-- Chart.js -->
-    <script src="js/profit-chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 </head>
@@ -892,49 +992,31 @@ button.btn:hover {
         <h3>📈 Dashboard de Lucros</h3>
 
         <!-- Filtros de Período -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<div class="filters">
-  <div class="filter-group">
-    <label>Data Inicial</label>
-    <input type="text" id="start-date">
-  </div>
-  <div class="filter-group">
-    <label>Data Final</label>
-    <input type="text" id="end-date">
-  </div>
-  <div class="filter-group">
-    <label>Agrupamento</label>
-    <select id="group-by">
-      <option value="day">Dia</option>
-      <option value="week">Semana</option>
-      <option value="month" selected>Mês</option>
-      <option value="year">Ano</option>
-    </select>
-  </div>
-  <div class="filter-group">
-    <label>&nbsp;</label>
-    <button class="btn btn-primary" onclick="profitChart.updateChart()">
-      <i class="fas fa-sync"></i> Atualizar
-    </button>
-  </div>
-</div>
-
-<script>
-  flatpickr("#start-date", {
-    dateFormat: "Y-m-d",
-    defaultDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
-  });
-
-  flatpickr("#end-date", {
-    dateFormat: "Y-m-d",
-    defaultDate: new Date()
-  });
-</script>
-
-
+        <div class="filters">
+            <div class="filter-group">
+                <label>Data Inicial</label>
+                <input type="text" id="start-date">
+            </div>
+            <div class="filter-group">
+                <label>Data Final</label>
+                <input type="text" id="end-date">
+            </div>
+            <div class="filter-group">
+                <label>Agrupamento</label>
+                <select id="group-by">
+                    <option value="day">Dia</option>
+                    <option value="week">Semana</option>
+                    <option value="month" selected>Mês</option>
+                    <option value="year">Ano</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button class="btn btn-primary" onclick="profitChart.updateChart()">
+                    <i class="fas fa-sync"></i> Atualizar
+                </button>
+            </div>
+        </div>
 
         <!-- Cards de Estatísticas -->
         <div class="stats-cards">
@@ -981,7 +1063,7 @@ button.btn:hover {
             apiKey: "AIzaSyDsMfWYyIVC2EbYJ1WbvfjCctaKBj0xTPk",
             authDomain: "meu-portfolio-arthur.firebaseapp.com",
             projectId: "meu-portfolio-arthur",
-            storageBucket: "meu-portfolio-arthur.firebasestorage.app",
+            storageBucket: "meu-portfolio-arthur.appspot.com",
             messagingSenderId: "971529546941",
             appId: "1:971529546941:web:e93b397941db0c502e1bd4",
             measurementId: "G-60BYE3P4P1"
@@ -991,9 +1073,19 @@ button.btn:hover {
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Seu código JavaScript será adicionado aqui...
+        // Inicialização dos flatpickr
+        flatpickr("#start-date", {
+            dateFormat: "Y-m-d",
+            defaultDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+        });
+
+        flatpickr("#end-date", {
+            dateFormat: "Y-m-d",
+            defaultDate: new Date()
+        });
     </script>
     <script src="./js/admin.js"></script>
+    <script src="js/profit-chart.js"></script>
 </body>
 
 </html>
