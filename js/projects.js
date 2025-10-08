@@ -34,6 +34,24 @@ const selectedRepositories = [
         technologies: ["html","css","js","firebase"],
         image: '../img/Torra.png'
     },
+
+    {
+        name: "Pastelano",
+        description: "Um cardápio virtual para uma pastelaria de Cuité",
+        html_url: "https://github.com/ArthurAraujo209/Pastelano",
+        homepage: "https://pastelano-cuite.web.app",
+        technologies: ["html","css","js","firebase"],
+        image: '../img/pastelano.png'
+    },
+
+    {
+        name: "Pizzaria Queiroz",
+        description: "Um cardápio virtual para uma Pizzaria em Cuité",
+        html_url: "https://github.com/ArthurAraujo209/Pizzaria-Queiroz",
+        homepage: "https://arthuraraujo209.github.io/Pizzaria-Queiroz/",
+        technologies: ["html","css","js","firebase"],
+        image: '../img/Queiroz.png'
+    },
 ];
 // Mapeamento de tecnologias para exibição
 const TECH_DISPLAY_NAMES = {
