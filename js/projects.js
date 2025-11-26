@@ -8,7 +8,7 @@ const selectedRepositories = [
         html_url: "https://github.com/ArthurAraujo209/Oca-da-Serra---Chal-s",
         homepage: "https://reservas-oca-da-serra.web.app",
         technologies: ["html","css","js","firebase"],
-        image: '../img/Oca-da-serra-reservas.png'
+        image: './img/Oca-da-serra-reservas.png'
     },
     {
         name: "Oca da Serra - Cardápio",
@@ -16,7 +16,7 @@ const selectedRepositories = [
         html_url: "https://github.com/ArthurAraujo209/Oca-da-Serra",
         homepage: "https://cardapio-oca-da-serra.web.app",
         technologies: ["html","css","js","firebase"],
-        image: '../img/Oca-da-serra-cardapio.png'
+        image: './img/Oca-da-serra-cardapio.png'
     },
     {
         name: "A Preferida",
@@ -24,7 +24,7 @@ const selectedRepositories = [
         html_url: "https://github.com/ArthurAraujo209/A-Preferida",
         homepage: "https://a-preferida-cuite.web.app",
         technologies: ["html","css","js","firebase"],
-        image: '../img/A-preferida.png'
+        image: './img/A-preferida.png'
     },
     {
         name: "Torra Café Bistrô",
@@ -32,7 +32,7 @@ const selectedRepositories = [
         html_url: "https://github.com/ArthurAraujo209/Cardapio-Cafe-Torra-Bistro",
         homepage: "https://cafe-torra.web.app",
         technologies: ["html","css","js","firebase"],
-        image: '../img/Torra.png'
+        image: './img/Torra.png'
     },
 
     {
@@ -41,7 +41,7 @@ const selectedRepositories = [
         html_url: "https://github.com/ArthurAraujo209/Pastelano",
         homepage: "https://pastelano-cuite.web.app",
         technologies: ["html","css","js","firebase"],
-        image: '../img/pastelano.png'
+        image: './img/pastelano.png'
     },
 
     {
@@ -50,7 +50,7 @@ const selectedRepositories = [
         html_url: "https://github.com/ArthurAraujo209/Pizzaria-Queiroz",
         homepage: "https://arthuraraujo209.github.io/Pizzaria-Queiroz/",
         technologies: ["html","css","js","firebase"],
-        image: '../img/Queiroz.png'
+        image: './img/Queiroz.png'
     },
 ];
 // Mapeamento de tecnologias para exibição
