@@ -22,8 +22,8 @@ const selectedRepositories = [
         name: "A Preferida",
         description: "Um Cardápio para uma cafeteria com temática Nordestina",
         html_url: "https://github.com/ArthurAraujo209/A-Preferida",
-        homepage: "https://arthuraraujo209.github.io/A-Preferida/",
-        technologies: ["html","css","js"],
+        homepage: "https://a-preferida-cuite.web.app",
+        technologies: ["html","css","js","firebase"],
         image: '../img/A-preferida.png'
     },
     {
