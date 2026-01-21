@@ -1,309 +1,286 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" itemscope itemtype="https://schema.org/Person">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arthur Araújo - Desenvolvedor Front End</title>
+    
+    <!-- Título otimizado para SEO -->
+    <title>Arthur Araújo - Desenvolvedor Front End | HTML, CSS, JavaScript, Firebase</title>
+    
+    <!-- Meta Description (CRUCIAL para SEO) -->
+    <meta name="description" content="Desenvolvedor Front End criativo com formação técnica em informática pelo IFRN. Especialista em HTML, CSS, JavaScript, Python e Firebase. Transformo ideias em experiências digitais incríveis.">
+    
+    <!-- Keywords (menos importante, mas ainda relevante) -->
+    <meta name="keywords" content="desenvolvedor front end, programador web, HTML, CSS, JavaScript, Python, Firebase, desenvolvedor web, criação de sites, IFRN">
+    
+    <!-- Open Graph Tags (para redes sociais) -->
+    <meta property="og:title" content="Arthur Araújo - Desenvolvedor Front End">
+    <meta property="og:description" content="Desenvolvedor Front End especializado em criar interfaces modernas e funcionais">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://arthuraraujodev.com">
+    
+    <!-- Autor e direitos -->
+    <meta name="author" content="Arthur Araújo">
+    <meta name="copyright" content="Arthur Araújo">
+    
+    <!-- Localização -->
+    <meta name="geo.region" content="BR-PB">
+    <meta name="geo.placename" content="Cuité">
+    
+    <!-- Robots directive -->
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    
+    <!-- Canonical URL (importante para evitar conteúdo duplicado) -->
+    <link rel="canonical" href="https://arthuraraujodev.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Preconnect para fontes e CDNs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- JSON-LD Structured Data (MUITO IMPORTANTE para SEO) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Arthur Araújo",
+        "jobTitle": "Desenvolvedor Front End",
+        "url": "https://arthuraraujodev.com",
+        "sameAs": [
+            "https://github.com/Arthuraraujo209",
+            "https://www.linkedin.com/in/arthur-lima-0229a2381",
+            "https://www.instagram.com/arthur.araujo_dev"
+        ],
+        "email": "arthurlimaaraujo209@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cuité",
+            "addressRegion": "PB",
+            "addressCountry": "BR"
+        },
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Instituto Federal do Rio Grande do Norte - Campus Santa Cruz",
+            "description": "Ensino Médio Técnico em Informática"
+        },
+        "knowsAbout": ["HTML", "CSS", "JavaScript", "Python", "Firebase", "Desenvolvimento Web Front End"],
+        "description": "Desenvolvedor Front End com formação técnica em informática pelo IFRN-SC, especializado em criar interfaces modernas e funcionais."
+    }
+    </script>
 </head>
 
-<body class="dark-mode">
-    <div id="particles-js"></div>
+<body class="dark-mode" vocab="https://schema.org/" typeof="Person">
+    
+    <div id="particles-js" aria-hidden="true"></div>
 
-    <header>
+    <header role="banner">
         <div class="container nav-container">
-            <a href="https://www.instagram.com/arthur.araujo_dev" style="text-decoration: none;" class="logo">Arthur Araujo</a>
-            <nav>
+            <!-- Logo com link para homepage -->
+            <a href="/" rel="home" style="text-decoration: none;" class="logo" property="name">Arthur Araujo</a>
+            
+            <!-- Navegação principal -->
+            <nav role="navigation" aria-label="Navegação principal">
                 <ul class="nav-links">
-                    <li><a href="#home">Início</a></li>
-                    <li><a href="#about">Sobre</a></li>
-                    <li><a href="#projects">Projetos</a></li>
-                    <li><a href="#education">Formação</a></li>
-                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="#home" aria-label="Ir para seção inicial">Início</a></li>
+                    <li><a href="#about" aria-label="Ir para seção sobre mim">Sobre</a></li>
+                    <li><a href="#projects" aria-label="Ir para seção de projetos">Projetos</a></li>
+                    <li><a href="#education" aria-label="Ir para seção de formação">Formação</a></li>
+                    <li><a href="#contact" aria-label="Ir para seção de contato">Contato</a></li>
                 </ul>
             </nav>
-            <button class="theme-toggle" id="theme-toggle">
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Alternar entre modo claro e escuro">
                 <i class="fas fa-moon"></i>
             </button>
         </div>
     </header>
 
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content fade-in">
-                <h1>Desenvolvedor <span>Front End</span> criativo e inovador</h1>
-                <p>Transformo ideias em experiências digitais incríveis usando HTML, CSS, JavaScript e muito mais.</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn">Ver Projetos</a>
-                    <a href="#contact" class="btn btn-outline">Entrar em Contato</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Sobre Mim</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text fade-in">
-                    <h3>Arthur Araújo</h3>
-                    <p>Sou desenvolvedor front-end com formação técnica em informática pelo IFRN-SC. Apaixonado por
-                        criar interfaces modernas e funcionais com HTML, CSS, JavaScript e Firebase.</p>
-                    <p>Busco sempre aprender novas tecnologias e elevar meus projetos ao próximo nível.</p>
-                    <div class="skills">
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Firebase</span>
-                    </div>
-                </div>
-                <div class="about-image fade-in delay-1">
-                    <!-- Espaço para sua foto -->
-                    <div
-                        style="width: 100%; height: 250px; background-image: url(img/Arthur\ Araujo\ DEV.png); background-size: 100%; background-repeat: no-repeat; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                        
+    <!-- Conteúdo principal -->
+    <main id="main-content" role="main">
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <!-- Título principal otimizado -->
+                    <h1>Arthur Araújo: <span>Desenvolvedor Front End</span> criativo e inovador</h1>
+                    <p>Transformo ideias em experiências digitais incríveis usando <strong>HTML</strong>, <strong>CSS</strong>, <strong>JavaScript</strong> e muito mais.</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn">Ver Projetos</a>
+                        <a href="#contact" class="btn btn-outline">Entrar em Contato</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Meus Projetos</h2>
-            </div>
-            <div class="projects-filter fade-in delay-1">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="html">HTML</button>
-                <button class="filter-btn" data-filter="css">CSS</button>
-                <button class="filter-btn" data-filter="js">JavaScript</button>
-                <button class="filter-btn" data-filter="python">Python</button>
-                <button class="filter-btn" data-filter="firebase">Firebase</button>
-            </div>
-            <div class="projects-grid">
-                <!-- Projetos serão carregados manualmente -->
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="education">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Formação Acadêmica</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item fade-in">
-                    <div class="timeline-content">
-                        <h3>Ensino Médio Técnico em Informática</h3>
-                        <p>Instituto Federal do Rio Grande do Norte - Campus Santa Cruz</p>
-                        <p>2024 - 2027</p>
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Sobre Mim</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text fade-in">
+                        <h3>Arthur Araújo - Desenvolvedor Front End</h3>
+                        <p>Sou desenvolvedor <strong>front-end</strong> com formação técnica em <strong>informática pelo IFRN-SC</strong>. Apaixonado por criar interfaces modernas e funcionais com <strong>HTML</strong>, <strong>CSS</strong>, <strong>JavaScript</strong> e <strong>Firebase</strong>.</p>
+                        <p>Busco sempre aprender novas tecnologias e elevar meus projetos ao próximo nível.</p>
+                        <div class="skills">
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Firebase</span>
+                        </div>
+                    </div>
+                    <div class="about-image fade-in delay-1">
+                        <!-- Imagem otimizada com alt descritivo -->
+                        <div style="width: 100%; height: 250px; background-image: url(img/Arthur\ Araujo\ DEV.png); background-size: 100%; background-repeat: no-repeat; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;" 
+                             role="img" 
+                             aria-label="Foto de perfil de Arthur Araújo, desenvolvedor front end">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Contato</h2>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info fade-in">
-                    <h3>Vamos conversar?</h3>
-                    <div class="contact-details">
-                        <p><i class="fas fa-envelope"></i> arthurlimaaraujo209@gmail.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> Cuité, PB - Brasil</p>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/Arthuraraujo209" class="social-link" target="_blank"><i
-                                class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/arthur-lima-0229a2381?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.instagram.com/arthur.araujo_dev" class="social-link" target="_blank"><i
-                                class="fab fa-instagram"></i></a>
-                    </div>
+        <section id="projects" class="projects">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Meus Projetos de Desenvolvimento Web</h2>
                 </div>
-                <div class="contact-form fade-in delay-1">
-                    <form id="contact-form">
-                        <input type="text" placeholder="Seu nome completo" required>
-                        <input type="email" placeholder="Seu melhor e-mail" required>
-                        <textarea placeholder="Sua mensagem..." required></textarea>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-paper-plane"></i> Enviar Mensagem
-                        </button>
-                    </form>
+                <div class="projects-filter fade-in delay-1">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="html">HTML</button>
+                    <button class="filter-btn" data-filter="css">CSS</button>
+                    <button class="filter-btn" data-filter="js">JavaScript</button>
+                    <button class="filter-btn" data-filter="python">Python</button>
+                    <button class="filter-btn" data-filter="firebase">Firebase</button>
+                </div>
+                <!-- Projetos com estrutura semântica otimizada -->
+                <div class="projects-grid" role="list" aria-label="Lista de projetos de desenvolvimento web">
+                    <!-- Projetos serão carregados aqui -->
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
+        <section id="education" class="education">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Formação Acadêmica e Qualificações</h2>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h3>Ensino Médio Técnico em Informática</h3>
+                            <p>Instituto Federal do Rio Grande do Norte - Campus Santa Cruz</p>
+                            <p>2024 - 2027</p>
+                            <!-- Adicionando mais contexto para SEO -->
+                            <p>Formação técnica com foco em <strong>desenvolvimento de software</strong>, <strong>programação web</strong>, <strong>banco de dados</strong> e <strong>engenharia de software</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Entre em Contato</h2>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info fade-in">
+                        <h3>Vamos conversar sobre seu projeto?</h3>
+                        <div class="contact-details">
+                            <p><i class="fas fa-envelope"></i> arthurlimaaraujo209@gmail.com</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Cuité, PB - Brasil</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://github.com/Arthuraraujo209" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Arthur Araújo"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/arthur-lima-0229a2381" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Arthur Araújo"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/arthur.araujo_dev" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Arthur Araújo"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form fade-in delay-1">
+                        <form id="contact-form">
+                            <input type="text" placeholder="Seu nome completo" required aria-label="Seu nome completo">
+                            <input type="email" placeholder="Seu melhor e-mail" required aria-label="Seu e-mail">
+                            <textarea placeholder="Sua mensagem..." required aria-label="Sua mensagem"></textarea>
+                            <button type="submit" class="btn">
+                                <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; 2025 Arthur Araújo. Todos os direitos reservados.</p>
+            <!-- Adicionando link para página de privacidade (criar depois) -->
+            <p><a href="/privacidade" style="color: inherit; text-decoration: none;">Política de Privacidade</a></p>
         </div>
     </footer>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Scripts com defer para melhor performance -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+    
+    <!-- Configuração do Firebase (mantida igual) -->
     <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDsMfWYyIVC2EbYJ1WbvfjCctaKBj0xTPk",
+        authDomain: "meu-portfolio-arthur.firebaseapp.com",
+        projectId: "meu-portfolio-arthur",
+        storageBucket: "meu-portfolio-arthur.firebasestorage.app",
+        messagingSenderId: "971529546941",
+        appId: "1:971529546941:web:e93b397941db0c502e1bd4",
+        measurementId: "G-60BYE3P4P1"
+    };
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDsMfWYyIVC2EbYJ1WbvfjCctaKBj0xTPk",
-            authDomain: "meu-portfolio-arthur.firebaseapp.com",
-            projectId: "meu-portfolio-arthur",
-            storageBucket: "meu-portfolio-arthur.firebasestorage.app",
-            messagingSenderId: "971529546941",
-            appId: "1:971529546941:web:e93b397941db0c502e1bd4",
-            measurementId: "G-60BYE3P4P1"
-        };
-        console.log('🔥 Inicializando Firebase...');
-
+    // Inicialização do Firebase
+    document.addEventListener('DOMContentLoaded', function() {
         try {
-            // Inicializar Firebase
             const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-            // Inicializar Firestore - FORMA CORRETA
             window.db = firebaseApp.firestore();
-
-            console.log('✅ Firebase inicializado com sucesso!');
-            console.log('📦 Firestore disponível:', typeof window.db);
-
         } catch (error) {
-            console.error('❌ Erro ao inicializar Firebase:', error);
+            console.error('Erro ao inicializar Firebase:', error);
             window.db = null;
         }
-
-        // Debug: Verificar se carregou corretamente
-        setTimeout(() => {
-            console.log('🔍 Debug - Status do Firebase:');
-            console.log('firebase:', typeof firebase);
-            console.log('firebase.firestore:', typeof firebase.firestore);
-            console.log('window.db:', typeof window.db);
-
-            if (window.db) {
-                console.log('🎉 Firestore está pronto para uso!');
-            } else {
-                console.log('❌ Firestore não inicializou');
-            }
-        }, 2000);
+    });
     </script>
+    
+    <!-- Scripts principais -->
+    <script src="js/script.js" defer></script>
+    <script src="js/projects.js" defer></script>
+    <script src="js/firebase-contact.js" defer></script>
+    <script src="js/contact-simple.js" defer></script>
 
-<script>
-    // Configuração do Particles.js
-    document.addEventListener('DOMContentLoaded', function () {
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#2A6BF2" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                    size: { value: 3, random: true },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: "#2A6BF2",
-                        opacity: 0.4,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 2,
-                        direction: "none",
-                        random: true,
-                        straight: false,
-                        out_mode: "out",
-                        bounce: false
-                    }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: {
-                        onhover: { enable: true, mode: "grab" },
-                        onclick: { enable: true, mode: "push" },
-                        resize: true
-                    }
-                },
-                retina_detect: true
-            });
-        });
-
-        // Dark/Light Mode Toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = themeToggle.querySelector('i');
-        
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            document.body.classList.toggle('light-mode');
+    <!-- Analytics básico (opcional) -->
+    <script>
+    window.addEventListener('load', function() {
+        // Rastreamento básico de visitas
+        if (window.db) {
+            const visitData = {
+                timestamp: new Date().toISOString(),
+                path: window.location.pathname,
+                referrer: document.referrer || 'direct'
+            };
             
-            if (document.body.classList.contains('light-mode')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
+            try {
+                window.db.collection('visits').add(visitData);
+            } catch (e) {
+                console.log('Não foi possível registrar visita:', e);
             }
-        });
-        
-        // Animação de scroll
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-        
-        // Filtro de projetos
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        let projectCards = [];
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove a classe active de todos os botões
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Adiciona a classe active ao botão clicado
-                button.classList.add('active');
-                
-                // Filtra os projetos
-                const filter = button.getAttribute('data-filter');
-                filterProjects(filter);
-            });
-        });
-        
-        function filterProjects(filter) {
-            projectCards.forEach(card => {
-                const cardTech = card.getAttribute('data-tech');
-                
-                if (filter === 'all' || cardTech === filter) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
         }
-        </script>
-    <script src="./js/projects.js"></script>
-    <script src="./js/firebase-contact.js"></script>
-    <script src="./js/contact-simple.js"></script>
-
+    });
+    </script>
 </body>
-
 </html>
